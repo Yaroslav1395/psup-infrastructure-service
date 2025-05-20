@@ -5,14 +5,14 @@ services:
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: controller
-      KAFKA_LISTENERS: CONTROLLER://:9093
+      KAFKA_LISTENERS: CONTROLLER://:9091
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9091,2@controller-2:9092,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_LOG_DIRS: /kafka/kraft-combined-logs
     volumes:
       - ~/Universal_Trade_Platform/kafka/controller-1:/kafka/kraft-combined-logs
+
 
   controller-2:
     image: apache/kafka:latest
@@ -20,12 +20,11 @@ services:
     environment:
       KAFKA_NODE_ID: 2
       KAFKA_PROCESS_ROLES: controller
-      KAFKA_LISTENERS: CONTROLLER://:9093
+      KAFKA_LISTENERS: CONTROLLER://:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9091,2@controller-2:9092,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_LOG_DIRS: /kafka/kraft-combined-logs
     volumes:
       - ~/Universal_Trade_Platform/kafka/controller-2:/kafka/kraft-combined-logs
 
@@ -38,9 +37,8 @@ services:
       KAFKA_LISTENERS: CONTROLLER://:9093
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9091,2@controller-2:9092,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_LOG_DIRS: /kafka/kraft-combined-logs
     volumes:
       - ~/Universal_Trade_Platform/kafka/controller-3:/kafka/kraft-combined-logs
 
@@ -48,16 +46,16 @@ services:
     image: apache/kafka:latest
     container_name: broker-1
     ports:
-      - 29092:9092
+      - 9094:9094
     environment:
       KAFKA_NODE_ID: 4
       KAFKA_PROCESS_ROLES: broker
-      KAFKA_LISTENERS: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9092'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:19092,PLAINTEXT_HOST://localhost:29092'
+      KAFKA_LISTENERS: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9094'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:19092,PLAINTEXT_HOST://localhost:9094'
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9091,2@controller-2:9092,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_LOG_DIRS: /kafka/kraft-combined-logs
     volumes:
@@ -71,16 +69,16 @@ services:
     image: apache/kafka:latest
     container_name: broker-2
     ports:
-      - 39092:9092
+      - 9095:9095
     environment:
       KAFKA_NODE_ID: 5
       KAFKA_PROCESS_ROLES: broker
-      KAFKA_LISTENERS: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9092'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:19092,PLAINTEXT_HOST://localhost:39092'
+      KAFKA_LISTENERS: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9095'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:19092,PLAINTEXT_HOST://localhost:9095'
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9091,2@controller-2:9092,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_LOG_DIRS: /kafka/kraft-combined-logs
     volumes:
@@ -94,16 +92,16 @@ services:
     image: apache/kafka:latest
     container_name: broker-3
     ports:
-      - 49092:9092
+      - 9096:9096
     environment:
       KAFKA_NODE_ID: 6
       KAFKA_PROCESS_ROLES: broker
-      KAFKA_LISTENERS: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9092'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:19092,PLAINTEXT_HOST://localhost:49092'
+      KAFKA_LISTENERS: 'PLAINTEXT://:19092,PLAINTEXT_HOST://:9096'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:19092,PLAINTEXT_HOST://localhost:9096'
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9091,2@controller-2:9092,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_LOG_DIRS: /kafka/kraft-combined-logs
     volumes:
@@ -112,12 +110,16 @@ services:
       - controller-1
       - controller-2
       - controller-3
+
   kafka-ui:
-    image: provectuslabs/kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
     ports:
-      - "9090:9090"
+      - 9090:8080
     environment:
-      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_NAME=local-cluster
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=broker-1:19092,broker-2:19092,broker-3:19092
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
