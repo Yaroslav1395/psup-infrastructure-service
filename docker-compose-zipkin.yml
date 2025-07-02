@@ -1,0 +1,14 @@
+services:
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - zipkin-net
+      - psup-shared-net
+networks:
+  zipkin-net:
+    driver: bridge
+  psup-shared-net:
+    external: true
