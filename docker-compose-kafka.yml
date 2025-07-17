@@ -12,6 +12,9 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
     volumes:
       - ~/Universal_Trade_Platform/kafka/controller-1:/kafka/kraft-combined-logs
+    networks:
+      - kafka-net
+      - psup-shared-net
 
 
   controller-2:
@@ -27,6 +30,9 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
     volumes:
       - ~/Universal_Trade_Platform/kafka/controller-2:/kafka/kraft-combined-logs
+    networks:
+      - kafka-net
+      - psup-shared-net
 
   controller-3:
     image: apache/kafka:latest
@@ -41,6 +47,9 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
     volumes:
       - ~/Universal_Trade_Platform/kafka/controller-3:/kafka/kraft-combined-logs
+    networks:
+      - kafka-net
+      - psup-shared-net
 
   broker-1:
     image: apache/kafka:latest
@@ -64,6 +73,9 @@ services:
       - controller-1
       - controller-2
       - controller-3
+    networks:
+      - kafka-net
+      - psup-shared-net
 
   broker-2:
     image: apache/kafka:latest
@@ -87,6 +99,9 @@ services:
       - controller-1
       - controller-2
       - controller-3
+    networks:
+      - kafka-net
+      - psup-shared-net
 
   broker-3:
     image: apache/kafka:latest
@@ -110,6 +125,9 @@ services:
       - controller-1
       - controller-2
       - controller-3
+    networks:
+      - kafka-net
+      - psup-shared-net
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -123,3 +141,11 @@ services:
       - broker-1
       - broker-2
       - broker-3
+    networks:
+      - kafka-net
+      - psup-shared-net
+networks:
+  kafka-net:
+    driver: bridge
+  psup-shared-net:
+    external: true
